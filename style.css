@@ -75,6 +75,7 @@ body{
    }
   .container{
     width: 100vh;
+    height: 50vh;
   }
   .title{
     font-size: 1.2em;
