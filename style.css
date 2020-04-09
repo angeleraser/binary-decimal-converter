@@ -68,6 +68,7 @@ body{
     font-size: 1.2em;
   }
   .converter-input{
+    height: 1.5;
     transform: scale(.8);
   }
   .input-box::after{
