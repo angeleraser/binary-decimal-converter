@@ -20,14 +20,14 @@ body{
   width: 400px;
   position: relative;
 }
-/*.container::after{
+.container::after{
   color: lightgray;
   content: "by angeleraser";
   position: absolute;
   justify-self: center;
   font-style: italic;
   top: 150%;
-}*/
+}
 .converter{
   /* border: 1px solid black; */
   background-color: lightgray;
@@ -75,7 +75,6 @@ body{
    }
   .container{
     width: 100vh;
-    height: 50vh;
   }
   .title{
     font-size: 1.2em;
