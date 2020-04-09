@@ -67,4 +67,7 @@ body{
   .container > .title{
     font-size: 1.5em;
   }
+  .converter-input{
+    transform: scale(.5);
+  }
 }
