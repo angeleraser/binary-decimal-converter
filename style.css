@@ -64,7 +64,7 @@ body{
 
   .container{
     width: 100vh;
-    height: 50vh;
+    align-items: flex-start;
   }
   .title{
     font-size: 1.2em;
