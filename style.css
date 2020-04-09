@@ -25,6 +25,7 @@ body{
   content: "by angeleraser";
   position: absolute;
   justify-self: center;
+  font-style: italic;
   top: 150%;
 }
 .converter{
