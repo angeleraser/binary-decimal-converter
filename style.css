@@ -68,8 +68,7 @@ body{
     font-size: 1.2em;
   }
   .converter-input{
-    height: 1.5;
-    transform: scale(.8);
+    transform: scale(.8, 1);
   }
   .input-box::after{
     left: 95%;
