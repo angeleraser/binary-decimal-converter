@@ -22,7 +22,7 @@ body{
 }
 .container::after{
   color: lightgray;
-  content: "by angeleraser";
+  content: "by @angeleraser";
   position: absolute;
   justify-self: center;
   font-style: italic;
