@@ -71,6 +71,6 @@ body{
     transform: scale(.8);
   }
   .input-box::after{
-    left: 100%;
+    left: 90%;
   }
 }
