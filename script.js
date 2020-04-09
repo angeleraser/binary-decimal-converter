@@ -81,7 +81,7 @@ function toDecimalNumber(number) {
       numbers.push(num);
       exp++
     })
-      if(numbers.length > 0 && (!numbers.reduce((a,b)=> a+b))){
+      if(numbers.length > 0 ){
        return numbers.reduce((a,b)=> a+b)
       }
      }
