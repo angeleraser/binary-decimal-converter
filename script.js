@@ -73,7 +73,7 @@ function toDecimalNumber(number) {
      let exp = 0;
     //  numeros que van a ser sumados 
      const numbers = [];
-
+     let decimalNumber = "¡SYNTAX ERROR!"
      if(isNumber(digits)){
         //  Multiplica los digitos por la base 2 y el exponente 
      (digits.reverse()).forEach( num =>{
@@ -81,13 +81,11 @@ function toDecimalNumber(number) {
       numbers.push(num);
       exp++
     })
-      if(numbers.length > 0 ){
-       return numbers.reduce((a,b)=> a+b)
+      if(numbers.length > 0 && (isNumber(numbers.reduce((a,b)=> a+b)))){
+       decimalNumber = numbers.reduce((a,b)=> a+b)
       }
      }
-     else{
-       return '¡SYNTAX ERROR!'
-     }
+     return decimalNumber
   }
   // flag para ejecutar la operacion 
   const isBinaryDigit = (arr) => {
