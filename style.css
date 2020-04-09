@@ -59,13 +59,12 @@ body{
   top: 5%;
   color: gold;
 }
-@media screen and (max-width:360px){
+@media screen and (max-width:480px){
 
   .container{
     width: 100vh;
-    height: 50vh;
   }
   .container > .title{
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
 }
