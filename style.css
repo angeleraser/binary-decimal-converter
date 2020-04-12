@@ -21,7 +21,7 @@ sub{
 .container{
   background-color: hsl(210, 100%, 20%);
   display: grid;
-  grid: 15% 70% 15% / 1fr;
+  grid: 15% 70% 15% / 100%;
   border-radius: 10px;
   height: 400px;
   width: 400px;
@@ -41,7 +41,7 @@ sub{
   box-shadow:  0px 1px 10px inset;
   font-size: 2em;
   height: 50px;
-  flex-basis: 60%;
+  width: 60%;
   text-align: center;
 }
 .converter-input:focus{
@@ -64,6 +64,7 @@ sub{
   align-items: center;
   letter-spacing: 3px;
   font-size: 1.5em;
+  width: 100%;
 }
 .icon{
   height: 25px;
@@ -73,7 +74,7 @@ sub{
 .type{
   color:black;
   display: flex;
-  flex-basis: 10%;
+  width: 10%;
   height: 70%;
   align-items: center;
   justify-content: center;
@@ -94,10 +95,11 @@ sub{
   border-top: 5px solid black;
   font-size: 1em;
   color:white;
+  width: 100%;
 }
 @media screen and (max-width:480px){
  .container{
-   height: 50vh;
+   height: 100vh;
    width: 100%;
    border-radius:0;
  }
@@ -114,5 +116,11 @@ sub{
  body{
    align-items: flex-start;
  }
+}
+@media screen and (max-height:480px){
+  .container{
+    height: 100vh;
+    width: 100%;
+  }
 }
 
