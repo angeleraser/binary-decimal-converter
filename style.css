@@ -99,7 +99,7 @@ sub{
 }
 @media screen and (max-width:480px){
  .container{
-   height: 100vh;
+   height: 95vh;
    width: 100%;
    border-radius:0;
  }
@@ -116,7 +116,7 @@ sub{
 }
 @media screen and (max-height:480px){
   .container{
-    height: 100vh;
+    height: 95vh;
     width: 100%;
   }
 }
