@@ -23,7 +23,7 @@ sub{
   display: grid;
   grid: 15% 70% 15% / 100%;
   border-radius: 10px;
-  height: 400px;
+  height: 90vh;
   width: 400px;
 }
 .converter{
@@ -94,7 +94,8 @@ sub{
   border: none;
   border-top: 5px solid black;
   font-size: 1em;
-  color:white;
+  font-style: italic;
+  color:gray;
   width: 100%;
 }
 @media screen and (max-width:480px){
