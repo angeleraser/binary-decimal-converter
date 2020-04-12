@@ -99,7 +99,7 @@ sub{
 }
 @media screen and (max-width:480px){
  .container{
-   height: 90vh;
+   height: 93vh;
    width: 100%;
    border-radius:0;
  }
