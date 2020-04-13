@@ -64,7 +64,7 @@ sub{
   justify-content:center;
   align-items: center;
   letter-spacing: 3px;
-  font-size: 1.5em;
+  font-size: 2em;
   width: 100%;
 }
 .icon{
@@ -94,7 +94,7 @@ sub{
 .footer{
   border: none;
   border-top: 5px solid black;
-  font-size: 1em;
+  font-size: 1.5em;
   font-style: italic;
   color:gray;
   width: 100%;
@@ -104,12 +104,6 @@ sub{
    height: 93vh;
    width: 100%;
    border-radius:0;
- }
- .header{
-   font-size: 2em;
- }
- .footer{
-   font-size: 1.5em;
  }
  .icon{
    height: 25px;
