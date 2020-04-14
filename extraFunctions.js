@@ -83,14 +83,7 @@ function toDecimalNumber(number) {
   decimalNumber = digitsToDecimal(splitedNumbers);
   return decimalNumber;  
 }
-function isNumber (value){
-  value = Number (deleteArrayComma(value))
-  let isNaNNumber = true; 
-  if(!value){
-    isNaNNumber = false;
-  }
- return isNaNNumber;
-}
+
 const verifySystem = (number) => { 
   let arr = [...number.toString()]
   let typeOfDigit  = 'binary';

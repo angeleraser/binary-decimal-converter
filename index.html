@@ -5,23 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="style.css">
-  <title>Binary-Decimal Numbers Converter</title>
+  <title>Number System Calculator</title>
 </head>
 <body>
   <div class="container">
-    <header class="header">Hex-Bin Number Calculator<img src="./calculator-1.png" alt="" class="icon"></header>
+    <header class="header">Number System Calculator<img src="./calculator-1.png" alt="" class="icon"></header>
     <div class="converter">
       <div class="convert-container">
-        <div class="type">DEC <sub>10</sub></div>
-          <input id="decimal-input" type="number" class="converter-input input" placeholder="" >
+        <label for="option" class="option-box">
+          <input type="radio" class="option" name="option" id="decimal-option" value="decimal">dec
+          <input type="radio" class="option" name="option" id="binary-option" value="binary">bin
+          <input type="radio" class="option" name="option" id="hexadecimal-option" value="hexadecimal">hex
+        </label>
+          <input  id="input" type="number" class="converter-input input" placeholder="" maxlength="10">
       </div>
-        <div class="convert-container">
-          <div class="type bin">BIN <sub>2</sub></div>
-            <input id="binary-output" type="text" class="converter-output converter-input bin" >
+        <div class="convert-container output">
+          <div class="system-name output1"></div>
+            <input id="output1" type="text" class="converter-output converter-input output1" >
         </div>
-        <div class="convert-container">
-          <div class="type hex">HEX <sub>16</sub></div>
-            <input id="hexadecimal-output" type="text" class="converter-output converter-input hex">
+        <div class="convert-container output">
+          <div class="system-name output2"></div>
+            <input id="output2" type="text" class="converter-output converter-input output2">
         </div>
     </div>
     <footer class="footer header">
