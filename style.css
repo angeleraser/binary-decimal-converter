@@ -130,9 +130,12 @@ sub{
    height: 25px;
    width: 25px;
  }
- .header{
-   font-size: 2em;
+ .header {
+   font-size: 1.5em;
  }
+ 
+ .footer{
+   font-size: 1.2em;
 }
 @media screen and (max-height:480px){
   .container{
