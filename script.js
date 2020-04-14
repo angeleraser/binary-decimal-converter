@@ -49,7 +49,16 @@ class Converter {
       this.input.addEventListener('keyup',()=>{
         let INPUT_VALUE = this.input.value;
         if(INPUT_VALUE){
-          this.outputValues(this.system,INPUT_VALUE);
+          // Evitar que se coloquen numeros mayores que 1 
+          if(option$BinarySystem.checked){
+            [...INPUT_VALUE].forEach( dig =>{
+              if(dig >1){
+               INPUT_VALUE = INPUT_VALUE.replace(dig,'');
+               this.input.value = this.input.value.replace(dig,'')
+              }
+            })
+          }
+          this.generateOutputValues(this.system,INPUT_VALUE);
         }
         else{
           this.clearInputs()
@@ -57,7 +66,7 @@ class Converter {
       })
     })
   }
-  outputValues(system,inputValue){
+  generateOutputValues(system,inputValue){
     switch (system) {
       case 'decimal':
         this.output1.value = convertFromDecimalTo(inputValue,'binary');
