@@ -131,7 +131,7 @@ sub{
    width: 25px;
  }
  .header{
-   font-size: 1.5em;
+   font-size: 2em;
  }
 }
 @media screen and (max-height:480px){
