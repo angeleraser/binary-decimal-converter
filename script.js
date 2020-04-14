@@ -212,7 +212,7 @@ const convertFromDecimalTo = (number,system = 'decimal') =>{
       // siguientes digitos conformados por los modulos 
       let nextDigits = deleteArrayComma(moduleList);
       digits = `${firstDigit}${nextDigits}`;
-      if(system == 'binary'&& includesBinaryDigit(digits))
+      if(system == 'binary'&& includesBinaryDigit(digits)){
       digits = digits;
       }
       else{ 
@@ -334,8 +334,7 @@ const includesBinaryDigit = (number) => {
          isBinary = false
       }
     }) 
-    return isBinary;
-}
+    return isBinary;}
 const decimalOptionConverter = new Converter(option$DecimalSystem);
 const binaryOptionConverter = new Converter(option$BinarySystem);
 const hexOptionConverter = new Converter(option$HexSystem)
