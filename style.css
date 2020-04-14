@@ -49,11 +49,11 @@ sub{
 .converter-input:focus{
   outline: none;
 }
+
 .converter-output{
   background-color: transparent;
   box-shadow: none;
   border: none;
-  /* width: 50%; */
   border-bottom: 2px solid white;
 }
 .converter-output:focus{
@@ -95,8 +95,10 @@ sub{
   /* border: 1px solid black; */
   display: flex;
   font-size: 1.5em;
+  font-weight: bold;
   justify-content: space-around;
   align-items: center;
+  z-index: 50;
 }
 .option{
   transform: scale(1.5);
