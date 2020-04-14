@@ -137,10 +137,10 @@ sub{
  .footer{
    font-size: 1.2em;
 }
+}
 @media screen and (max-height:480px){
   .container{
     height: 90vh;
     width: 100%;
   }
 }
-
