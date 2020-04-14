@@ -218,15 +218,16 @@ const convertFromDecimalTo = (number,system = 'decimal') =>{
       else{ 
         digits = '¡invalid number!'
       }
+    }
     // retorna el mismo numero porque no es necesario convertir 
     else{
-         number >=0 ? digits = `${number}` : digits = ``;
-      }
-  }
+      number >=0 ? digits = `${number}` : digits = ``;
+    }
+}
   else{
     digits = number;
   }
-  return digits
+    return digits
 }
 function convertToDecimalFrom(number,system = 'decimal') {
 
