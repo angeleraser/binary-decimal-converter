@@ -48,14 +48,6 @@ class Converter {
       this.clearInputs();
       this.input.addEventListener('keyup',()=>{
         let INPUT_VALUE = this.input.value;
-        switch (this.system) {
-          case 'binary':
-            this.deleteNoBinaryDigits(INPUT_VALUE,this.input)   
-            break;
-          case 'hexadecimal':   
-          default:
-            break;
-        }
         if(INPUT_VALUE){
           this.outputValues(this.system,INPUT_VALUE);
         }
@@ -130,15 +122,6 @@ class Converter {
         break;
     }
     return name
-  }
-  deleteNoBinaryDigits = (number,input) => { 
-    let arr = [...number.toString()];
-    let isBinary = false;
-      arr.forEach( dig =>{
-        if((dig > 1)){ 
-           input.value = `${number.replace(dig,'')}`
-        }
-    })
   }
 }
 const convertFromDecimalTo = (number,system = 'decimal') =>{
@@ -327,7 +310,6 @@ function convertToDecimalFrom(number,system = 'decimal') {
   }
   return decimalNumber;  
 }
- 
 const includesHexLetter = (arr)=>{
   let isIncludes = false;
   if(arr.includes('A') || arr.includes('B') || arr.includes('C') ||
@@ -337,8 +319,6 @@ const includesHexLetter = (arr)=>{
 }
 return isIncludes;
 }
- 
-
 const decimalOptionConverter = new Converter(option$DecimalSystem);
 const binaryOptionConverter = new Converter(option$BinarySystem);
 const hexOptionConverter = new Converter(option$HexSystem)
