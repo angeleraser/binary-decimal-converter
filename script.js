@@ -212,22 +212,15 @@ const convertFromDecimalTo = (number,system = 'decimal') =>{
       // siguientes digitos conformados por los modulos 
       let nextDigits = deleteArrayComma(moduleList);
       digits = `${firstDigit}${nextDigits}`;
-      if(system == 'binary'&& includesBinaryDigit(digits)){
-      digits = digits;
       }
-      else{ 
-        digits = '¡invalid number!'
-      }
-    }
     // retorna el mismo numero porque no es necesario convertir 
     else{
-      number >=0 ? digits = `${number}` : digits = ``;
-    }
-}
-  else{
+         number >=0 ? digits = `${number}` : digits = ``;
+      }
+  } else{
     digits = number;
   }
-    return digits
+  return digits
 }
 function convertToDecimalFrom(number,system = 'decimal') {
 
@@ -326,16 +319,6 @@ const includesHexLetter = (arr)=>{
 }
 return isIncludes;
 }
-const includesBinaryDigit = (number) => { 
-  let arr = [...number.toString()]
-  let isBinary  = true;
-    // para verificar si es una cifra binaria 
-    arr.forEach( dig =>{
-      if((dig !==1 || dig !==0) && (dig > 1)){ 
-         isBinary = false
-      }
-    }) 
-    return isBinary;}
 const decimalOptionConverter = new Converter(option$DecimalSystem);
 const binaryOptionConverter = new Converter(option$BinarySystem);
 const hexOptionConverter = new Converter(option$HexSystem)
@@ -343,5 +326,4 @@ decimalOptionConverter.setConverter();
 binaryOptionConverter.setConverter();
 hexOptionConverter.setConverter();
 option$DecimalSystem.click()
-
 
