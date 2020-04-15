@@ -8,31 +8,6 @@ const optionList = document.querySelector('.optionList');
 const optionBox = document.querySelector('.optionBox');
 const OUTPUT_1$NAME = document.querySelector('.output1');
 const OUTPUT_2$NAME = document.querySelector('.output2');
-const deleteArrayComma = (arr)=>{
-  let arrStr = arr.toString();
-  let isCommaInclude = arrStr.includes(',');  
-  while (isCommaInclude){
-    arrStr = arrStr.replace(',','');
-    isCommaInclude = arrStr.includes(',');
-  }
-  return arrStr;
-}
-const splitElements = (arr) =>{
-  let splitedArray = [];
-  arr.forEach( el =>{
-    str = Number(el)
-    splitedArray.push(el);
-  })
-  return splitedArray
-}
-function isNumber (value){
-  value = Number (deleteArrayComma(value))
-  let isNaNNumber = true; 
-  if(!value){
-    isNaNNumber = false;
-  }
- return isNaNNumber;
-}
 class Converter {
   constructor(option){
     this.input = INPUT;
@@ -44,7 +19,7 @@ class Converter {
   setConverter(){
     this.option.addEventListener('click', ()=>{
       this.setInputType(this.system);
-      this.setOuputName(this.system)
+      this.setOuputName(this.system);
       this.clearInputs();
       this.input.addEventListener('keyup',()=>{
         let INPUT_VALUE = this.input.value;
@@ -53,11 +28,23 @@ class Converter {
           if(option$BinarySystem.checked){
             [...INPUT_VALUE].forEach( dig =>{
               if(dig >1){
-               INPUT_VALUE = INPUT_VALUE.replace(dig,'');
                this.input.value = this.input.value.replace(dig,'')
               }
             })
+          } 
+          // Todas las letras a mayuscula 
+          else if(option$HexSystem.checked){
+            [...INPUT_VALUE].forEach( dig =>{
+              this.input.value = this.input.value.replace(dig,dig.toUpperCase());
+              if(dig == 1 || dig == 2 ||dig == 3 ||dig == 4 ||dig == 5 ||dig == 6 ||dig == 7 ||dig == 8 ||dig == 9 || dig == 0 || dig == 'A' ||dig == 'B' ||dig == 'C' ||dig == 'D' ||dig == 'E' ||dig == 'F' ){
+                this.input.value = this.input.value;
+              }
+              else{
+                this.input.value = this.input.value.replace(dig,'');
+              }
+            })
           }
+          INPUT_VALUE = this.input.value;
           this.generateOutputValues(this.system,INPUT_VALUE);
         }
         else{
@@ -89,19 +76,16 @@ class Converter {
     this.output1.value=''
     this.output2.value=''
   }
-  setOuputName(system){
+  setOuputName (system){
     switch (system) {
       case 'decimal':
-        OUTPUT_1$NAME.innerHTML = this.getSystemName('binary');
-        OUTPUT_2$NAME.innerHTML = this.getSystemName('hexadecimal')
+        OUTPUT$NAME('binary','hexadecimal')
         break;
       case 'binary':
-        OUTPUT_1$NAME.innerHTML = this.getSystemName('decimal');
-        OUTPUT_2$NAME.innerHTML = this.getSystemName('hexadecimal');
+       OUTPUT$NAME('decimal','hexadecimal')
         break;
       case 'hexadecimal':
-        OUTPUT_1$NAME.innerHTML = this.getSystemName('decimal');
-        OUTPUT_2$NAME.innerHTML = this.getSystemName('binary')
+        OUTPUT$NAME('decimal','binary')
         break 
       default:
         break;
@@ -114,23 +98,6 @@ class Converter {
     else{
       this.input.setAttribute('type','number')
     }
-  }
-  getSystemName = (system)=>{
-    let name = null;
-    switch (system) {
-      case 'decimal':
-        name = `DEC<sub>10</sub>`
-        break;
-       case 'binary':
-         name = `BIN<sub>2</sub>` ;
-        break;
-        case 'hexadecimal':
-          name = `HEX<sub>16</sub>`;
-          break;
-      default:
-        break;
-    }
-    return name
   }
 }
 const convertFromDecimalTo = (number,system = 'decimal') =>{
@@ -231,8 +198,7 @@ const convertFromDecimalTo = (number,system = 'decimal') =>{
   }
   return digits
 }
-function convertToDecimalFrom(number,system = 'decimal') {
-
+const convertToDecimalFrom = (number,system = 'decimal') => {
   const hexDigitsToDecimal = (arr) =>{
   let arrNumber = [];
   arr.forEach(digit =>{
@@ -272,7 +238,6 @@ function convertToDecimalFrom(number,system = 'decimal') {
       arrNumber.push(digit)
     }
   })
-  
   return arrNumber;
   }
   const digitsToDecimal = (digits) => {
@@ -297,11 +262,8 @@ function convertToDecimalFrom(number,system = 'decimal') {
      numbers.push(num);
      exp++
    })
-   if((isNumber(digits))){
     decimalNumber = numbers.reduce((a,b)=> a+b);
-   }
   } 
-   return decimalNumber;
   }
   let typeOfNumber = system;
   if(system == 'decimal'){
@@ -319,20 +281,49 @@ function convertToDecimalFrom(number,system = 'decimal') {
   }
   return decimalNumber;  
 }
-const includesHexLetter = (arr)=>{
-  let isIncludes = false;
-  if(arr.includes('A') || arr.includes('B') || arr.includes('C') ||
-  arr.includes('D') || arr.includes('E') ||arr.includes('F') || arr.  includes('a') || arr.includes('b') || arr.includes('c') ||
-  arr.includes('d') || arr.includes('e') ||arr.includes('f')){
-  isIncludes = true;
+const deleteArrayComma = (arr)=>{
+  let arrStr = arr.toString();
+  let isCommaInclude = arrStr.includes(',');  
+  while (isCommaInclude){
+    arrStr = arrStr.replace(',','');
+    isCommaInclude = arrStr.includes(',');
+  }
+  return arrStr;
 }
-return isIncludes;
+const splitElements = (arr) =>{
+  let splitedArray = [];
+  arr.forEach( el =>{
+    str = Number(el)
+    splitedArray.push(el);
+  })
+  return splitedArray
+}
+const OUTPUT$NAME = (output1,output2)=>{
+  const getSystemName = (system)=>{
+    let name = null;
+    switch (system) {
+      case 'decimal':
+        name = `DEC<sub>10</sub>`
+        break;
+       case 'binary':
+         name = `BIN<sub>2</sub>` ;
+        break;
+        case 'hexadecimal':
+          name = `HEX<sub>16</sub>`;
+          break;
+      default:
+        break;
+    }
+    return name
+  }
+  OUTPUT_1$NAME.innerHTML = getSystemName(output1)
+  OUTPUT_2$NAME.innerHTML = getSystemName(output2)
 }
 const decimalOptionConverter = new Converter(option$DecimalSystem);
 const binaryOptionConverter = new Converter(option$BinarySystem);
-const hexOptionConverter = new Converter(option$HexSystem)
+const hexOptionConverter = new Converter(option$HexSystem);
 decimalOptionConverter.setConverter();
 binaryOptionConverter.setConverter();
 hexOptionConverter.setConverter();
-option$DecimalSystem.click()
-
+// Activa por defecto el convertidor del Sistema decimal 
+option$DecimalSystem.click();
