@@ -98,7 +98,7 @@ class Converter {
     }
     else{
       this.input.setAttribute('placeholder',`${system} number`)
-      this.input.setAttribute('type','text')
+      this.input.setAttribute('type','number')
     }
   }
 }
