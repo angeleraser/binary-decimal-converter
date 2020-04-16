@@ -8,27 +8,32 @@
   <title>Number System Calculator</title>
 </head>
 <body>
-  <div class="container">
-    <header class="header">Number System Calculator<img src="./calculator-1.png" alt="" class="icon"></header>
-    <div class="converter">
-      <div class="convert-container">
+  <div class="main-container">
+    <!-- CABECERA -->
+    <header class="main-container__header">Number System Calculator<img src="./calculator-1.png" alt="" class="icon"></header>
+    <div class="main-container__converter">
+      <!-- INPUT Y OPCIONES  -->
+      <div class="converter__item">
         <label for="option" class="option-box">
           <input type="radio" class="option" name="option" id="decimal-option" value="decimal">dec
           <input type="radio" class="option" name="option" id="binary-option" value="binary">bin
           <input type="radio" class="option" name="option" id="hexadecimal-option" value="hexadecimal">hex
         </label>
-          <input  id="input" type="number" class="converter-input input" placeholder="" maxlength="10">
+          <input  id="input" type="number" class="converter__input input" placeholder="" >
       </div>
-        <div class="convert-container output">
-          <div class="system-name output1"></div>
-            <input id="output1" type="text" class="converter-output converter-input output1" >
+      <!-- OUTPUT 1  -->
+        <div class="converter__item output">
+          <div class="converter__output-name output1"></div>
+            <input id="output1" type="text" class="converter__output converter__input output1" >
         </div>
-        <div class="convert-container output">
-          <div class="system-name output2"></div>
-            <input id="output2" type="text" class="converter-output converter-input output2">
+        <!-- OUTPUT 2  -->
+        <div class="converter__item output">
+          <div class="converter__output-name output2"></div>
+            <input id="output2" type="text" class="converter__output converter__input output2">
         </div>
     </div>
-    <footer class="footer header">
+    <!-- PIE DE PAGINA  -->
+    <footer class="main-container__footer main-container__header">
       developed by @angeleraser
     </footer>
   </div>
