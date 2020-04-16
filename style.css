@@ -10,6 +10,12 @@ input[type=numer]::-webkit-outer-spin-button{
   -webkit-appearance: none;
   margin:0;
 }
+::-webkit-input-placeholder{
+  color: rgba(0, 0, 0, .5);
+}
+::-moz-placeholder  {
+  color: rgba(0, 0, 0, .5);
+}
 sub{
   transform: scale(.8);
 }

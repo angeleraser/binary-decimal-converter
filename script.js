@@ -93,10 +93,12 @@ class Converter {
   }
   setInputType(system){
     if(system == 'hexadecimal'){
+      this.input.setAttribute('placeholder','hex number')
       this.input.setAttribute('type','text')
     }
     else{
-      this.input.setAttribute('type','number')
+      this.input.setAttribute('placeholder',`${system} number`)
+      this.input.setAttribute('type','text')
     }
   }
 }
