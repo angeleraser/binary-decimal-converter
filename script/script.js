@@ -1,6 +1,6 @@
-const BIN_radioInput = document.querySelector('#binary-option');
-const DEC_radioInput = document.querySelector('#decimal-option');
-const HEX_radioInput = document.querySelector('#hexadecimal-option');
+const binRadioInput = document.querySelector('#binary-option');
+const decRadioInput = document.querySelector('#decimal-option');
+const hexRadioInput = document.querySelector('#hexadecimal-option');
 class Converter {
   constructor(option){
     this.input = document.querySelector('#input');;
@@ -22,27 +22,28 @@ class Converter {
   inputOnKeyup(){
     this.input.addEventListener('keyup',()=>{
       let inputValue = this.input.value;
+      let inputValueArr = [...inputValue];
       if(inputValue){
         // Evitar que se coloquen numeros mayores que 1 
         if(BIN_radioInput.checked){
-          [...inputValue].forEach( dig =>{
+          inputValueArr.forEach( dig =>{
             if(dig >1){
              this.input.value = this.input.value.replace(dig,'')
-            }
+            } 
           })}  
         else if(HEX_radioInput.checked){
-          [...inputValue].forEach( dig =>{
+          inputValueArr.forEach( dig =>{
             // Todas las letras a mayuscula 
             this.input.value = this.input.value.replace(dig,dig.toUpperCase());
             if(dig == 1 || dig == 2 ||dig == 3 ||dig == 4 ||dig == 5 ||dig == 6 ||dig == 7 ||dig == 8 ||dig == 9 || dig == 0 || dig == 'A' ||dig == 'B' ||dig == 'C' ||dig == 'D' ||dig == 'E' ||dig == 'F' ){
               this.input.value = this.input.value;
             }
             else{
-              this.input.value = this.input.value.replace(dig,'');
+              this.input.value = this.input.value.replace(dig,'')
             }
           })
         }
-        inputValue = this.input.value;
+        inputValue = this.input.value
         this.renderOutputValues(this.system,inputValue);
       }
       else{
@@ -52,18 +53,21 @@ class Converter {
   }
   renderOutputValues(system,inputValue){
     switch (system) {
-      case 'decimal':
+      case 'decimal':{
         this.output1.value = convertTo(inputValue,'binary');
         this.output2.value = convertTo(inputValue,'hexadecimal');
         break;
-      case 'binary':
+      }
+      case 'binary':{
         this.output1.value = toDecimal(inputValue,system);
-        this.output2.value = convertTo(toDecimal(inputValue,system),'hexadecimal')
+        this.output2.value = convertTo(toDecimal(inputValue,system),'hexadecimal');
         break;
-      case 'hexadecimal':
+      }
+      case 'hexadecimal':{
         this.output1.value = toDecimal(inputValue,system);
         this.output2.value = convertTo(toDecimal(inputValue,system),'binary');
         break
+      }
       default:
         break;
     }
@@ -127,14 +131,13 @@ const convertTo = (number,system = 'decimal') =>{
   let module = null;
   let digits = null;  
   let divisor = null;
-  number = Number(number)
-  number = number.toFixed(0);
+  let inputNumber = Number(number).toFixed(0);
   const toHexLetter = (arr) =>{
     let hexLetters = [];
     arr.forEach( (num)=>{
-      let number = Number (num);
+      let hexNumber = Number (num);
       let hexLetter = null;
-      switch (number) {
+      switch (hexNumber) {
         case 10:
           hexLetter = 'A'
           break;
@@ -164,45 +167,47 @@ const convertTo = (number,system = 'decimal') =>{
   const generateQuotient$Module = (number) =>{
     // Divisor 
     switch (system){
-      case 'binary':
+      case 'binary':{
         divisor = 2;
         break;
-      case 'hexadecimal':
+      }
+      case 'hexadecimal':{
         divisor = 16;
-        break
+        break;
+      }
+      default:{
+        break;
+      }
     }
     module   = number % divisor;
     quotient = Math.floor(number/divisor)
     saveQuotient$ModuleDigits(quotient,module,quotientList,moduleList);
     switch(system){
-      case 'binary':
+      case 'binary':{
         while (quotient !== 1) {
           generateQuotient$Module(quotient);
           }
         break;
-      case 'hexadecimal':
+      }
+      case 'hexadecimal':{
         while (quotient > 16) {
           generateQuotient$Module(quotient);
-        }  
+        }
+        break;
+      }
+      default:{
+        break;
+      }    
     }
   }
   const saveQuotient$ModuleDigits = (quotient,module) => {
     quotientList.push(quotient);
     moduleList.unshift(module);
   }
-  const deleteArrayComma = (arr)=>{
-    let arrStr = arr.toString();
-    let isCommaInclude = arrStr.includes(',');  
-    while (isCommaInclude){
-      arrStr = arrStr.replace(',','');
-      isCommaInclude = arrStr.includes(',');
-    }
-    return arrStr;
-  }
   // Aqui se realiza la conversion 
   if(system !== 'decimal'){
     if(number >=2){
-      generateQuotient$Module(number);
+      generateQuotient$Module(inputNumber);
       if(system == 'hexadecimal'){
         quotientList = toHexLetter(quotientList);
         moduleList = toHexLetter(moduleList);
@@ -210,11 +215,11 @@ const convertTo = (number,system = 'decimal') =>{
       const lastQLDigit = quotientList.length - 1;
       // Primer digito del numero
       let firstDigit = quotientList[lastQLDigit];
+      // siguientes digitos conformados por los modulos 
+      let nextDigits = moduleList.join('');
       if( system == 'hexadecimal' && number < 16){
         firstDigit = ``
       }
-      // siguientes digitos conformados por los modulos 
-      let nextDigits = deleteArrayComma(moduleList);
       digits = `${firstDigit}${nextDigits}`;
       }
     // retorna el mismo numero porque no es necesario convertir 
@@ -290,24 +295,22 @@ const toDecimal = (number,system = 'decimal') => {
      numbers.push(num);
      exp++
    })
-    decimalNumber = numbers.reduce((a,b)=> a+b);
+    return numbers.reduce((a,b)=> a+b);
   } 
   }
   const splitElements = (arr) =>{
     let splitedArray = [];
     arr.forEach( el =>{
-      str = Number(el)
       splitedArray.push(el);
     })
     return splitedArray
   }
+  let decimalNumber = null;
   if(system == 'decimal'){
     decimalNumber = number;
   }
   else{
-     // Convierte el numero (parametro) en un array de strings 
   let numberStr = [...number.toString()]; 
-  let decimalNumber = '';
   let splitedNumbers = splitElements(numberStr);
   if(system == 'hexadecimal'){
     splitedNumbers = hexDigitsToDecimal(splitedNumbers);
@@ -316,11 +319,10 @@ const toDecimal = (number,system = 'decimal') => {
   }
   return decimalNumber
 }
-const DECIMAL_SYSTEM = new Converter(DEC_radioInput);
-const BINARY_SYSTEM = new Converter(BIN_radioInput);
-const HEXADECIMAL_SYSTEM = new Converter(HEX_radioInput);
-DECIMAL_SYSTEM.initializeConverter();
-BINARY_SYSTEM.initializeConverter();
-HEXADECIMAL_SYSTEM.initializeConverter();
-// Activa por defecto el convertidor del sistema decimal 
-DEC_radioInput.click();
+const decimalSystem = new Converter(DecRadioInput);
+const binarySystem = new Converter(binRadioInput);
+const hexadecimalSystem = new Converter(hexRadioInput);
+decimalSystem.initializeConverter();
+binarySystem.initializeConverter();
+HEXAdecimalSystem.initializeConverter();
+decRadioInput.click();
