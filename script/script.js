@@ -1,57 +1,56 @@
-const INPUT = document.querySelector('#input');
-const OUTPUT_1 = document.querySelector('#output1');
-const OUTPUT_2 = document.querySelector('#output2');
-const OUTPUT_1$NAME = document.querySelector('.output1');
-const OUTPUT_2$NAME = document.querySelector('.output2');
 const BIN_radioInput = document.querySelector('#binary-option');
 const DEC_radioInput = document.querySelector('#decimal-option');
 const HEX_radioInput = document.querySelector('#hexadecimal-option');
 class Converter {
   constructor(option){
-    this.input = INPUT;
-    this.output1 = OUTPUT_1;
-    this.output2 = OUTPUT_2;
+    this.input = document.querySelector('#input');;
+    this.output1 = document.querySelector('#output1');
+    this.output1Name = document.querySelector('.output1');
+    this.output2 = document.querySelector('#output2');
+    this.output2Name = document.querySelector('.output2');
     this.option = option;
     this.system = this.option.value;
   }
-  setConverter(){
+  initializeConverter(){
     this.option.addEventListener('click', ()=>{
-      this.setInputType(this.system);
-      this.setOuputName(this.system);
-      this.clearInputs();
-      this.input.addEventListener('keyup',()=>{
-        let INPUT_VALUE = this.input.value;
-        if(INPUT_VALUE){
-          // Evitar que se coloquen numeros mayores que 1 
-          if(BIN_radioInput.checked){
-            [...INPUT_VALUE].forEach( dig =>{
-              if(dig >1){
-               this.input.value = this.input.value.replace(dig,'')
-              }
-            })
-          } 
-          // Todas las letras a mayuscula 
-          else if(HEX_radioInput.checked){
-            [...INPUT_VALUE].forEach( dig =>{
-              this.input.value = this.input.value.replace(dig,dig.toUpperCase());
-              if(dig == 1 || dig == 2 ||dig == 3 ||dig == 4 ||dig == 5 ||dig == 6 ||dig == 7 ||dig == 8 ||dig == 9 || dig == 0 || dig == 'A' ||dig == 'B' ||dig == 'C' ||dig == 'D' ||dig == 'E' ||dig == 'F' ){
-                this.input.value = this.input.value;
-              }
-              else{
-                this.input.value = this.input.value.replace(dig,'');
-              }
-            })
-          }
-          INPUT_VALUE = this.input.value;
-          this.renderValues(this.system,INPUT_VALUE);
-        }
-        else{
-          this.clearInputs()
-        }
-      })
+      this.switchInputType(this.system);
+      this.renderOutputNames(this.system);
+      this.eraseAllCharacters();
+      this.inputOnKeyup();
     })
   }
-  renderValues(system,inputValue){
+  inputOnKeyup(){
+    this.input.addEventListener('keyup',()=>{
+      let inputValue = this.input.value;
+      if(inputValue){
+        // Evitar que se coloquen numeros mayores que 1 
+        if(BIN_radioInput.checked){
+          [...inputValue].forEach( dig =>{
+            if(dig >1){
+             this.input.value = this.input.value.replace(dig,'')
+            }
+          })}  
+        else if(HEX_radioInput.checked){
+          [...inputValue].forEach( dig =>{
+            // Todas las letras a mayuscula 
+            this.input.value = this.input.value.replace(dig,dig.toUpperCase());
+            if(dig == 1 || dig == 2 ||dig == 3 ||dig == 4 ||dig == 5 ||dig == 6 ||dig == 7 ||dig == 8 ||dig == 9 || dig == 0 || dig == 'A' ||dig == 'B' ||dig == 'C' ||dig == 'D' ||dig == 'E' ||dig == 'F' ){
+              this.input.value = this.input.value;
+            }
+            else{
+              this.input.value = this.input.value.replace(dig,'');
+            }
+          })
+        }
+        inputValue = this.input.value;
+        this.renderOutputValues(this.system,inputValue);
+      }
+      else{
+        this.eraseAllCharacters()
+      }
+    })
+  }
+  renderOutputValues(system,inputValue){
     switch (system) {
       case 'decimal':
         this.output1.value = convertTo(inputValue,'binary');
@@ -69,27 +68,48 @@ class Converter {
         break;
     }
   }
-  clearInputs(){
+  eraseAllCharacters(){
     this.input.value = ''
     this.output1.value=''
     this.output2.value=''
   }
-  setOuputName (system){
+  renderOutputNames (system){
+    const switchOutputName = (output1,output2)=>{
+      const getSystemName = (system)=>{
+        let name = null;
+        switch (system) {
+          case 'decimal':
+            name = `DEC<sub>10</sub>`
+            break;
+           case 'binary':
+             name = `BIN<sub>2</sub>` ;
+            break;
+            case 'hexadecimal':
+              name = `HEX<sub>16</sub>`;
+              break;
+          default:
+            break;
+        }
+        return name
+      }
+      this.output1Name.innerHTML = getSystemName(output1)
+      this.output2Name.innerHTML = getSystemName(output2)
+    }
     switch (system) {
       case 'decimal':
-        OUTPUT$NAME('binary','hexadecimal')
+        switchOutputName('binary','hexadecimal')
         break;
       case 'binary':
-       OUTPUT$NAME('decimal','hexadecimal')
+       switchOutputName('decimal','hexadecimal')
         break;
       case 'hexadecimal':
-        OUTPUT$NAME('decimal','binary')
+        switchOutputName('decimal','binary')
         break 
       default:
         break;
     }
   }
-  setInputType(system){
+  switchInputType(system){
     if(system == 'hexadecimal'){
       this.input.setAttribute('placeholder','hex number')
       this.input.setAttribute('type','text')
@@ -109,7 +129,6 @@ const convertTo = (number,system = 'decimal') =>{
   let divisor = null;
   number = Number(number)
   number = number.toFixed(0);
- 
   const toHexLetter = (arr) =>{
     let hexLetters = [];
     arr.forEach( (num)=>{
@@ -121,7 +140,7 @@ const convertTo = (number,system = 'decimal') =>{
           break;
         case 11:
           hexLetter = 'B'
-          break
+          break;
         case 12:
           hexLetter = 'C'
           break
@@ -251,7 +270,7 @@ const toDecimal = (number,system = 'decimal') => {
   }
   const digitsToDecimal = (digits) => {
   let base = null;
-  switch(typeOfNumber){
+  switch(system){
     case 'binary':
       base = 2;
       break;
@@ -282,7 +301,6 @@ const toDecimal = (number,system = 'decimal') => {
     })
     return splitedArray
   }
-  let typeOfNumber = system;
   if(system == 'decimal'){
     decimalNumber = number;
   }
@@ -291,39 +309,18 @@ const toDecimal = (number,system = 'decimal') => {
   let numberStr = [...number.toString()]; 
   let decimalNumber = '';
   let splitedNumbers = splitElements(numberStr);
-  if(typeOfNumber == 'hexadecimal'){
-    splitedNumbers = hexDigitsToDecimal(splitedNumbers)
+  if(system == 'hexadecimal'){
+    splitedNumbers = hexDigitsToDecimal(splitedNumbers);
   }
   decimalNumber = digitsToDecimal(splitedNumbers);
   }
-  return decimalNumber;  
-}
-const OUTPUT$NAME = (output1,output2)=>{
-  const getSystemName = (system)=>{
-    let name = null;
-    switch (system) {
-      case 'decimal':
-        name = `DEC<sub>10</sub>`
-        break;
-       case 'binary':
-         name = `BIN<sub>2</sub>` ;
-        break;
-        case 'hexadecimal':
-          name = `HEX<sub>16</sub>`;
-          break;
-      default:
-        break;
-    }
-    return name
-  }
-  OUTPUT_1$NAME.innerHTML = getSystemName(output1)
-  OUTPUT_2$NAME.innerHTML = getSystemName(output2)
+  return decimalNumber
 }
 const DECIMAL_SYSTEM = new Converter(DEC_radioInput);
 const BINARY_SYSTEM = new Converter(BIN_radioInput);
 const HEXADECIMAL_SYSTEM = new Converter(HEX_radioInput);
-DECIMAL_SYSTEM.setConverter();
-BINARY_SYSTEM.setConverter();
-HEXADECIMAL_SYSTEM.setConverter();
-// Activa por defecto el convertidor del Sistema decimal 
+DECIMAL_SYSTEM.initializeConverter();
+BINARY_SYSTEM.initializeConverter();
+HEXADECIMAL_SYSTEM.initializeConverter();
+// Activa por defecto el convertidor del sistema decimal 
 DEC_radioInput.click();
