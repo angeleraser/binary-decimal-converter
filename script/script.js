@@ -3,7 +3,7 @@ const DEC_radioInput = document.querySelector('#decimal-option');
 const HEX_radioInput = document.querySelector('#hexadecimal-option');
 class Converter {
   constructor(option){
-    this.input = document.querySelector('#input');;
+    this.input = document.querySelector('#input');
     this.output1 = document.querySelector('#output1');
     this.output1Name = document.querySelector('.output1');
     this.output2 = document.querySelector('#output2');
@@ -63,7 +63,7 @@ class Converter {
       case 'hexadecimal':
         this.output1.value = toDecimal(inputValue,system);
         this.output2.value = convertTo(toDecimal(inputValue,system),'binary');
-        break
+        break;
       default:
         break;
     }
@@ -104,7 +104,7 @@ class Converter {
         break;
       case 'hexadecimal':
         switchOutputName('decimal','binary')
-        break 
+        break;
       default:
         break;
     }
@@ -143,16 +143,16 @@ const convertTo = (number,system = 'decimal') =>{
           break;
         case 12:
           hexLetter = 'C'
-          break
+          break;
         case 13:
           hexLetter = 'D'
-          break
+          break;
         case 14:
           hexLetter = 'E'
-          break
+          break;
         case 15:
           hexLetter = 'F'
-          break
+          break;
         default:
           hexLetter = number
           break;
@@ -169,7 +169,7 @@ const convertTo = (number,system = 'decimal') =>{
         break;
       case 'hexadecimal':
         divisor = 16;
-        break
+        break;
     }
     module   = number % divisor;
     quotient = Math.floor(number/divisor)
