@@ -24,26 +24,24 @@ class Converter {
       let inputValue = this.input.value;
       let inputValueArr = [...inputValue];
       if(inputValue){
-        // Evitar que se coloquen numeros mayores que 1 
-        if(BIN_radioInput.checked){
+        if(binRadioInput.checked){
           inputValueArr.forEach( dig =>{
             if(dig >1){
              this.input.value = this.input.value.replace(dig,'')
             } 
           })}  
-        else if(HEX_radioInput.checked){
+        else if(hexRadioInput.checked){
           inputValueArr.forEach( dig =>{
-            // Todas las letras a mayuscula 
             this.input.value = this.input.value.replace(dig,dig.toUpperCase());
             if(dig == 1 || dig == 2 ||dig == 3 ||dig == 4 ||dig == 5 ||dig == 6 ||dig == 7 ||dig == 8 ||dig == 9 || dig == 0 || dig == 'A' ||dig == 'B' ||dig == 'C' ||dig == 'D' ||dig == 'E' ||dig == 'F' ){
               this.input.value = this.input.value;
             }
             else{
-              this.input.value = this.input.value.replace(dig,'')
+              this.input.value = this.input.value.replace(dig,'');
             }
           })
         }
-        inputValue = this.input.value
+        inputValue = this.input.value;
         this.renderOutputValues(this.system,inputValue);
       }
       else{
@@ -123,7 +121,7 @@ class Converter {
       this.input.setAttribute('type','number')
     }
   }
-}
+};
 const convertTo = (number,system = 'decimal') =>{
   let quotientList = [];
   let quotient = null;
@@ -226,11 +224,12 @@ const convertTo = (number,system = 'decimal') =>{
     else{
          number >=0 ? digits = `${number}` : digits = ``;
       }
-  } else{
+  }
+  else{
     digits = number;
   }
-  return digits
-}
+  return digits;
+};
 const toDecimal = (number,system = 'decimal') => {
   const hexDigitsToDecimal = (arr) =>{
   let arrNumber = [];
@@ -268,7 +267,7 @@ const toDecimal = (number,system = 'decimal') => {
       }
     }
     else{
-      arrNumber.push(digit)
+      arrNumber.push(digit);
     }
   })
   return arrNumber;
@@ -285,7 +284,6 @@ const toDecimal = (number,system = 'decimal') => {
   }
   // Aqui se realiza la conversion 
   {
-     //  numeros que van a ser sumados 
      const numbers = [];
      // exponente de la base 
      let exp = 0;
@@ -293,7 +291,7 @@ const toDecimal = (number,system = 'decimal') => {
     (digits.reverse()).forEach( num =>{
      num = num * Math.pow(base,exp);
      numbers.push(num);
-     exp++
+     exp+=1;
    })
     return numbers.reduce((a,b)=> a+b);
   } 
@@ -317,12 +315,12 @@ const toDecimal = (number,system = 'decimal') => {
   }
   decimalNumber = digitsToDecimal(splitedNumbers);
   }
-  return decimalNumber
-}
-const decimalSystem = new Converter(DecRadioInput);
+  return decimalNumber;
+};
+const decimalSystem = new Converter(decRadioInput);
 const binarySystem = new Converter(binRadioInput);
 const hexadecimalSystem = new Converter(hexRadioInput);
 decimalSystem.initializeConverter();
 binarySystem.initializeConverter();
-HEXAdecimalSystem.initializeConverter();
+hexadecimalSystem.initializeConverter();
 decRadioInput.click();
