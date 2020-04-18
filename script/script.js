@@ -64,14 +64,11 @@ class Converter {
       case 'hexadecimal':{
         this.output1.value = toDecimal(inputValue,system);
         this.output2.value = convertTo(toDecimal(inputValue,system),'binary');
-<<<<<<< HEAD
         break
       }
-=======
-        break;
->>>>>>> 0177b4a4a5dce03d78f028d0ccfade44e96c4aba
-      default:
-        break;
+      default:{
+       break;
+      }
     }
   }
   eraseAllCharacters(){
@@ -159,7 +156,7 @@ const convertTo = (number,system = 'decimal') =>{
           hexLetter = 'F'
           break;
         default:
-          hexLetter = number
+          hexLetter = hexNumber;
           break;
       }
       hexLetters.push(hexLetter)
