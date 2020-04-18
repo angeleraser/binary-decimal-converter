@@ -122,7 +122,7 @@ class Converter {
       this.input.setAttribute('type','number')
     }
   }
-};
+}
 const convertTo = (number,system = 'decimal') =>{
   let quotientList = [];
   let quotient = null;
