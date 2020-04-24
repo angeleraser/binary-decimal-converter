@@ -2,7 +2,7 @@ const binRadioInput = document.querySelector('#binary-option');
 const decRadioInput = document.querySelector('#decimal-option');
 const hexRadioInput = document.querySelector('#hexadecimal-option');
 class Converter {
-  constructor(option){
+  constructor(option) {
     this.input = document.querySelector('#input');
     this.output1 = document.querySelector('#output1');
     this.output1Name = document.querySelector('.output1');
@@ -11,85 +11,83 @@ class Converter {
     this.option = option;
     this.system = this.option.value;
   }
-  initializeConverter(){
-    this.option.addEventListener('click', ()=>{
+  initializeConverter() {
+    this.option.addEventListener('click', () => {
       this.switchInputType(this.system);
       this.renderOutputNames(this.system);
       this.eraseAllCharacters();
       this.inputOnKeyup();
     })
   }
-  inputOnKeyup(){
-    this.input.addEventListener('keyup',()=>{
+  inputOnKeyup() {
+    this.input.addEventListener('keyup', () => {
       let inputValue = this.input.value;
       let inputValueArr = [...inputValue];
-      if(inputValue){
-        if(binRadioInput.checked){
-          inputValueArr.forEach( dig =>{
-            if(dig >1){
-             this.input.value = this.input.value.replace(dig,'')
-            } 
-          })}  
-        else if(hexRadioInput.checked){
-          inputValueArr.forEach( dig =>{
-            this.input.value = this.input.value.replace(dig,dig.toUpperCase());
-            if(dig == 1 || dig == 2 ||dig == 3 ||dig == 4 ||dig == 5 ||dig == 6 ||dig == 7 ||dig == 8 ||dig == 9 || dig == 0 || dig == 'A' ||dig == 'B' ||dig == 'C' ||dig == 'D' ||dig == 'E' ||dig == 'F' ){
-              this.input.value = this.input.value;
+      if (inputValue) {
+        if (binRadioInput.checked) {
+          inputValueArr.forEach(dig => {
+            if (dig > 1) {
+              this.input.value = this.input.value.replace(dig, '')
             }
-            else{
-              this.input.value = this.input.value.replace(dig,'');
+          })
+        } else if (hexRadioInput.checked) {
+          inputValueArr.forEach(dig => {
+            this.input.value = this.input.value.replace(dig, dig.toUpperCase());
+            if (dig == 1 || dig == 2 || dig == 3 || dig == 4 || dig == 5 || dig == 6 || dig == 7 || dig == 8 || dig == 9 || dig == 0 || dig == 'A' || dig == 'B' || dig == 'C' || dig == 'D' || dig == 'E' || dig == 'F') {
+              this.input.value = this.input.value;
+            } else {
+              this.input.value = this.input.value.replace(dig, '');
             }
           })
         }
         inputValue = this.input.value;
-        this.renderOutputValues(this.system,inputValue);
-      }
-      else{
+        this.renderOutputValues(this.system, inputValue);
+      } else {
         this.eraseAllCharacters()
       }
     })
   }
-  renderOutputValues(system,inputValue){
+  renderOutputValues(system, inputValue) {
     switch (system) {
-      case 'decimal':{
-        this.output1.value = convertTo(inputValue,'binary');
-        this.output2.value = convertTo(inputValue,'hexadecimal');
+      case 'decimal': {
+        this.output1.value = convertTo(inputValue, 'binary');
+        this.output2.value = convertTo(inputValue, 'hexadecimal');
         break;
       }
-      case 'binary':{
-        this.output1.value = toDecimal(inputValue,system);
-        this.output2.value = convertTo(toDecimal(inputValue,system),'hexadecimal');
+      case 'binary': {
+        this.output1.value = toDecimal(inputValue, system);
+        this.output2.value = convertTo(toDecimal(inputValue, system), 'hexadecimal');
         break;
       }
-      case 'hexadecimal':{
-        this.output1.value = toDecimal(inputValue,system);
-        this.output2.value = convertTo(toDecimal(inputValue,system),'binary');
+      case 'hexadecimal': {
+        this.output1.value = toDecimal(inputValue, system);
+        this.output2.value = convertTo(toDecimal(inputValue, system), 'binary');
         break
       }
-      default:{
-       break;
+      default: {
+        break;
       }
     }
   }
-  eraseAllCharacters(){
+  eraseAllCharacters() {
     this.input.value = ''
-    this.output1.value=''
-    this.output2.value=''
+    this.output1.value = ''
+    this.output2.value = ''
   }
-  renderOutputNames (system){
-    const switchOutputName = (output1,output2)=>{
-      const getSystemName = (system)=>{
+  renderOutputNames(system) {
+    const switchOutputName = (output1, output2) => {
+      const getSystemName = (system) => {
         let name = null;
         switch (system) {
           case 'decimal':
             name = `DEC<sub>10</sub>`
             break;
-           case 'binary':
-             name = `BIN<sub>2</sub>` ;
+          case 'binary':
+            name = `BIN<sub>2</sub>`;
             break;
-            case 'hexadecimal':
-              name = `HEX<sub>16</sub>`;
-              break;
+          case 'hexadecimal':
+            name = `HEX<sub>16</sub>`;
+            break;
           default:
             break;
         }
@@ -100,41 +98,40 @@ class Converter {
     }
     switch (system) {
       case 'decimal':
-        switchOutputName('binary','hexadecimal')
+        switchOutputName('binary', 'hexadecimal')
         break;
       case 'binary':
-       switchOutputName('decimal','hexadecimal')
+        switchOutputName('decimal', 'hexadecimal')
         break;
       case 'hexadecimal':
-        switchOutputName('decimal','binary')
+        switchOutputName('decimal', 'binary')
         break;
       default:
         break;
     }
   }
-  switchInputType(system){
-    if(system == 'hexadecimal'){
-      this.input.setAttribute('placeholder','hex number')
-      this.input.setAttribute('type','text')
-    }
-    else{
-      this.input.setAttribute('placeholder',`${system} number`)
-      this.input.setAttribute('type','number')
+  switchInputType(system) {
+    if (system == 'hexadecimal') {
+      this.input.setAttribute('placeholder', 'hex number')
+      this.input.setAttribute('type', 'text')
+    } else {
+      this.input.setAttribute('placeholder', `${system} number`)
+      this.input.setAttribute('type', 'number')
     }
   }
 }
-const convertTo = (number,system = 'decimal') =>{
+const convertTo = (number, system = 'decimal') => {
   let quotientList = [];
   let quotient = null;
   let moduleList = [];
   let module = null;
-  let digits = null;  
+  let digits = null;
   let divisor = null;
   let inputNumber = Number(number).toFixed(0);
-  const toHexLetter = (arr) =>{
+  const toHexLetter = (arr) => {
     let hexLetters = [];
-    arr.forEach( (num)=>{
-      let hexNumber = Number (num);
+    arr.forEach((num) => {
+      let hexNumber = Number(num);
       let hexLetter = null;
       switch (hexNumber) {
         case 10:
@@ -163,51 +160,51 @@ const convertTo = (number,system = 'decimal') =>{
     })
     return hexLetters
   }
-  const generateQuotient$Module = (number) =>{
+  const generateQuotient$Module = (number) => {
     // Divisor 
-    switch (system){
-      case 'binary':{
+    switch (system) {
+      case 'binary': {
         divisor = 2;
         break;
       }
-      case 'hexadecimal':{
+      case 'hexadecimal': {
         divisor = 16;
         break;
       }
-      default:{
+      default: {
         break;
       }
     }
-    module   = number % divisor;
-    quotient = Math.floor(number/divisor)
-    saveQuotient$ModuleDigits(quotient,module,quotientList,moduleList);
-    switch(system){
-      case 'binary':{
+    module = number % divisor;
+    quotient = Math.floor(number / divisor)
+    saveQuotient$ModuleDigits(quotient, module, quotientList, moduleList);
+    switch (system) {
+      case 'binary': {
         while (quotient !== 1) {
           generateQuotient$Module(quotient);
-          }
+        }
         break;
       }
-      case 'hexadecimal':{
+      case 'hexadecimal': {
         while (quotient > 16) {
           generateQuotient$Module(quotient);
         }
         break;
       }
-      default:{
+      default: {
         break;
-      }    
+      }
     }
   }
-  const saveQuotient$ModuleDigits = (quotient,module) => {
+  const saveQuotient$ModuleDigits = (quotient, module) => {
     quotientList.push(quotient);
     moduleList.unshift(module);
   }
   // Aqui se realiza la conversion 
-  if(system !== 'decimal'){
-    if(number >=2){
+  if (system !== 'decimal') {
+    if (number >= 2) {
       generateQuotient$Module(inputNumber);
-      if(system == 'hexadecimal'){
+      if (system == 'hexadecimal') {
         quotientList = toHexLetter(quotientList);
         moduleList = toHexLetter(moduleList);
       }
@@ -216,105 +213,102 @@ const convertTo = (number,system = 'decimal') =>{
       let firstDigit = quotientList[lastQLDigit];
       // siguientes digitos conformados por los modulos 
       let nextDigits = moduleList.join('');
-      if( system == 'hexadecimal' && number < 16){
+      if (system == 'hexadecimal' && number < 16) {
         firstDigit = ``
       }
       digits = `${firstDigit}${nextDigits}`;
-      }
+    }
     // retorna el mismo numero porque no es necesario convertir 
-    else{
-         number >=0 ? digits = `${number}` : digits = ``;
-      }
-  }
-  else{
+    else {
+      number >= 0 ? digits = `${number}` : digits = ``;
+    }
+  } else {
     digits = number;
   }
   return digits;
 };
-const toDecimal = (number,system = 'decimal') => {
-  const hexDigitsToDecimal = (arr) =>{
-  let arrNumber = [];
-  arr.forEach(digit =>{
-    if(typeof digit == 'string'){
-      digit = digit.toUpperCase();
-      let number = digit;
-      switch(digit){
-        case 'A':
-         number = 10;
-         arrNumber.push(number)
-         break;
-        case 'B':
-          number = 11;
-          arrNumber.push(number)
-          break;
-        case 'C':
-          number = 12;
-          arrNumber.push(number)
-          break;
-        case 'D':
-          number = 13;
-          arrNumber.push(number)
-          break;
-        case 'E':
-          number = 14;
-          arrNumber.push(number)
-          break;
-        case 'F':
-          number = 15;
-          arrNumber.push(number)
-          break; 
-        default:
-          arrNumber.push(number) 
+const toDecimal = (number, system = 'decimal') => {
+  const hexDigitsToDecimal = (arr) => {
+    let arrNumber = [];
+    arr.forEach(digit => {
+      if (typeof digit == 'string') {
+        digit = digit.toUpperCase();
+        let number = digit;
+        switch (digit) {
+          case 'A':
+            number = 10;
+            arrNumber.push(number)
+            break;
+          case 'B':
+            number = 11;
+            arrNumber.push(number)
+            break;
+          case 'C':
+            number = 12;
+            arrNumber.push(number)
+            break;
+          case 'D':
+            number = 13;
+            arrNumber.push(number)
+            break;
+          case 'E':
+            number = 14;
+            arrNumber.push(number)
+            break;
+          case 'F':
+            number = 15;
+            arrNumber.push(number)
+            break;
+          default:
+            arrNumber.push(number)
+        }
+      } else {
+        arrNumber.push(digit);
       }
-    }
-    else{
-      arrNumber.push(digit);
-    }
-  })
-  return arrNumber;
+    })
+    return arrNumber;
   }
   const digitsToDecimal = (digits) => {
-  let base = null;
-  switch(system){
-    case 'binary':
-      base = 2;
-      break;
-    case 'hexadecimal':
-      base = 16;
-      break;
+    let base = null;
+    switch (system) {
+      case 'binary':
+        base = 2;
+        break;
+      case 'hexadecimal':
+        base = 16;
+        break;
+    }
+    // Aqui se realiza la conversion 
+    {
+      const numbers = [];
+      // exponente de la base 
+      let exp = 0;
+      //  Multiplica los digitos por la base y el exponente 
+      (digits.reverse()).forEach(num => {
+        num = num * Math.pow(base, exp);
+        numbers.push(num);
+        exp += 1;
+      })
+      return numbers.reduce((a, b) => a + b);
+    }
   }
-  // Aqui se realiza la conversion 
-  {
-     const numbers = [];
-     // exponente de la base 
-     let exp = 0;
-    //  Multiplica los digitos por la base y el exponente 
-    (digits.reverse()).forEach( num =>{
-     num = num * Math.pow(base,exp);
-     numbers.push(num);
-     exp+=1;
-   })
-    return numbers.reduce((a,b)=> a+b);
-  } 
-  }
-  const splitElements = (arr) =>{
+  const splitElements = (arr) => {
     let splitedArray = [];
-    arr.forEach( el =>{
+    arr.forEach(el => {
       splitedArray.push(el);
     })
     return splitedArray
   }
   let decimalNumber = null;
-  if(system == 'decimal'){
+  if (system == 'decimal') {
     decimalNumber = number;
-  }
-  else{
-  let numberStr = [...number.toString()]; 
-  let splitedNumbers = splitElements(numberStr);
-  if(system == 'hexadecimal'){
-    splitedNumbers = hexDigitsToDecimal(splitedNumbers);
-  }
-  decimalNumber = digitsToDecimal(splitedNumbers);
+  } else {
+    let numberStr = [...number.toString()];
+    let splitedNumbers = splitElements(numberStr);
+    if (system == 'hexadecimal') {
+      splitedNumbers = hexDigitsToDecimal(splitedNumbers);
+    }
+    decimalNumber = digitsToDecimal(splitedNumbers);
   }
   return decimalNumber;
 };
